@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FADRA: Video Face Restoration</title>
+  <meta name="description" content="FADRA: Frequency-Aware Diffusion with Residual Adaptation for Video Face Restoration.">
+  <meta property="og:title" content="FADRA: Frequency-Aware Diffusion with Residual Adaptation for Video Face Restoration">
+  <meta property="og:description" content="A frequency-aware diffusion framework with LQ-guided repeated residual adaptation for high-fidelity, temporally stable video face restoration.">
+  <meta property="og:image" content="static/images/intro-img-2.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="bar-inner">
+    <a class="brand" href="#top">FADRA</a>
+    <nav>
+      <a href="#videos">Demo</a>
+      <a href="#overview">Overview</a>
+      <a href="#abstract">Abstract</a>
+      <a href="#method">Method</a>
+      <a href="#qualitative">Comparison</a>
+      <a href="#results">Results</a>
+      <a href="#bibtex">Citation</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="card hero">
+    <span class="pill-tag">Project Page</span>
+    <h1>FADRA: Frequency-Aware Diffusion with Residual Adaptation for Video Face Restoration</h1>
+    <p class="tagline">Sharp facial details and stable faces over time, from a text-to-video diffusion prior</p>
+
+    <p class="authors">
+      <span><span class="au">Jin Jiang</span><sup>1</sup></span>
+      <span><span class="au">Jia Wang</span><sup>2</sup></span>
+      <span><span class="au">Panwen Hu</span><sup>3</sup></span>
+      <span><span class="au">Weiran Zhao</span><sup>1</sup></span>
+      <span><span class="au">Shengcai Liao</span><sup>1&#8224;</sup></span>
+    </p>
+    <p class="affils">
+      <span><sup>1</sup>United Arab Emirates University</span>
+      <span><sup>2</sup>Ocean University of China</span>
+      <span><sup>3</sup>MBZUAI</span>
+    </p>
+    <p class="affils small"><span><sup>&#8224;</sup>Corresponding author</span></p>
+
+    <p class="venue">Under Review</p>
+
+    <div class="links">
+      <a class="btn primary" href="https://arxiv.org/pdf/2607.06389" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h9l5 5v15H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v6h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        Paper</a>
+      <a class="btn" href="#videos">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="currentColor"/></svg>
+        Demo</a>
+      <a class="btn disabled" href="#" aria-disabled="true">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5a3.9 3.9 0 0 1 1-2.7 3.6 3.6 0 0 1 .1-2.7s.8-.3 2.8 1a9.6 9.6 0 0 1 5 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7a3.9 3.9 0 0 1 1 2.7c0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9V21c0 .3.2.6.7.5A10 10 0 0 0 12 2z" fill="currentColor"/></svg>
+        Code <small>soon</small></a>
+      <a class="btn" href="#bibtex">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h4v4c0 3-1.5 4.5-4 5M14 7h4v4c0 3-1.5 4.5-4 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        BibTeX</a>
+    </div>
+  </section>
+
+  <!-- Videos -->
+  <section class="card" id="videos">
+    <h2>Interactive Demo</h2>
+    <p class="intro">Pick an example and a method. In <b>Slider</b> view, drag to compare that method (left) with FADRA (right); in <b>All methods</b> view, every result plays in sync. Slow the playback down to spot flicker.</p>
+
+    <div class="demo">
+      <div class="stage">
+        <div class="stage-bar">
+          <div class="seg" role="tablist" aria-label="View">
+            <button type="button" data-mode="slider" aria-selected="true">Slider</button>
+            <button type="button" data-mode="grid" aria-selected="false">All methods</button>
+          </div>
+          <p class="now"></p>
+        </div>
+
+        <div class="viewer">
+          <div class="slider-view">
+            <div class="compare">
+              <div class="layer under"></div>
+              <div class="layer top"></div>
+              <div class="handle"></div>
+              <span class="tag l"></span>
+              <span class="tag r">FADRA (Ours)</span>
+            </div>
+          </div>
+          <div class="grid-view" hidden></div>
+          <div class="loading" hidden><span></span></div>
+        </div>
+
+        <div class="controls">
+          <button class="play" type="button" aria-label="Pause"></button>
+          <input class="scrub" type="range" min="0" max="1000" value="0" aria-label="Seek">
+          <span class="time">0.0 s</span>
+          <div class="speed" role="group" aria-label="Playback speed">
+            <button type="button" data-rate="1" aria-pressed="true">1×</button>
+            <button type="button" data-rate="0.5" aria-pressed="false">0.5×</button>
+            <button type="button" data-rate="0.25" aria-pressed="false">0.25×</button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="picker">
+        <p class="pick-group">VFHQ test set</p>
+        <div class="thumbs">
+          <button class="thumb" type="button" data-dir="static/videos/vfhq/01" data-hq="1" aria-label="VFHQ test set, Example 1"><img src="static/videos/vfhq/01/poster.jpg" alt="" loading="lazy"><span>Ex. 1</span></button>
+          <button class="thumb" type="button" data-dir="static/videos/vfhq/02" data-hq="1" aria-label="VFHQ test set, Example 2"><img src="static/videos/vfhq/02/poster.jpg" alt="" loading="lazy"><span>Ex. 2</span></button>
+          <button class="thumb" type="button" data-dir="static/videos/vfhq/03" data-hq="1" aria-label="VFHQ test set, Example 3"><img src="static/videos/vfhq/03/poster.jpg" alt="" loading="lazy"><span>Ex. 3</span></button>
+        </div>
+        <p class="pick-group">CelebV-HQ · zero-shot</p>
+        <div class="thumbs">
+          <button class="thumb" type="button" data-dir="static/videos/celebv/01" data-hq="1" aria-label="CelebV-HQ · zero-shot, Example 1"><img src="static/videos/celebv/01/poster.jpg" alt="" loading="lazy"><span>Ex. 1</span></button>
+          <button class="thumb" type="button" data-dir="static/videos/celebv/02" data-hq="1" aria-label="CelebV-HQ · zero-shot, Example 2"><img src="static/videos/celebv/02/poster.jpg" alt="" loading="lazy"><span>Ex. 2</span></button>
+        </div>
+        <p class="pick-group">Real-world movies · no ground truth</p>
+        <div class="thumbs">
+          <button class="thumb" type="button" data-dir="static/videos/real/01" aria-label="Real-world movies · no ground truth, Movie clip 1"><img src="static/videos/real/01/poster.jpg" alt="" loading="lazy"><span>Clip 1</span></button>
+          <button class="thumb" type="button" data-dir="static/videos/real/02" aria-label="Real-world movies · no ground truth, Movie clip 2"><img src="static/videos/real/02/poster.jpg" alt="" loading="lazy"><span>Clip 2</span></button>
+        </div>
+        <p class="pick-group">Compare FADRA with</p>
+        <div class="methods">
+          <button type="button" data-m="lq">LQ input</button>
+          <button type="button" data-m="rfpp">RestoreFormer++</button>
+          <button type="button" data-m="diffbir">DiffBIR</button>
+          <button type="button" data-m="keep">KEEP</button>
+          <button type="button" data-m="pgtformer">PGTFormer</button>
+          <button type="button" data-m="svfr">SVFR</button>
+          <button type="button" data-m="hq">HQ (GT)</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="card" id="overview">
+    <h2>Overview</h2>
+    <p class="intro">The frame-wise restorer (DiffBIR) flickers; video restorers (KEEP, PGTFormer, SVFR) over-smooth fine eye details. FADRA keeps both detail and temporal stability.</p>
+    <figure class="figure">
+      <img src="static/images/intro-img-2.jpg" alt="Comparison of FADRA with DiffBIR, KEEP, PGTFormer and SVFR on video frames, showing sharper eye details and the best FVD of 38.97." loading="eager">
+      <figcaption><b>Eye crops across frames.</b> Existing methods over-smooth details and drift over time; FADRA stays sharp and consistent, with the best FVD (38.97) on the VFHQ test set.</figcaption>
+    </figure>
+  </section>
+
+  <!-- Abstract -->
+  <section class="card" id="abstract">
+    <h2>Abstract</h2>
+    <p class="abstract">Video face restoration (VFR) aims to recover high-quality and temporally consistent facial details from severely degraded video sequences; however, existing methods still struggle to balance spatial fidelity and temporal coherence under complex degradations. To address this, we propose <b>FADRA</b>, a frequency-aware diffusion framework with iterative residual adaptation specifically tailored for robust VFR. We first leverage the strong temporal consistency of a pre-trained text-to-video diffusion model and introduce lightweight LoRA adapters together with a Low-Quality (LQ) Pixel-Alignment Feature Fusion module to efficiently adapt the frozen generative prior to the VFR task. To further adapt the frozen diffusion backbone beyond LoRA-based adaptation, we introduce a <b>Repeated Residual Adaptation Head (RRAH)</b> for step-wise residual refinement after the diffusion backbone. To make this refinement explicitly guided by the degraded observation, RRAH further takes the LQ latent together with the current velocity prediction as input, allowing the model to repeatedly revisit LQ cues and predict residual updates at each flow-matching step. This LQ-guided repeated residual adaptation helps recover fine facial details while preserving the inherent temporal priors of the pre-trained model. Furthermore, to ensure the structural integrity of perceptually important details, we introduce a <b>Frequency-Aware Loss</b> that provides explicit supervision across multiple spectral bands, emphasizing visually sensitive frequency components that are crucial for perceptual quality and prone to temporal jittering. Extensive experiments demonstrate that FADRA recovers better facial structures and produces more temporally consistent videos than state-of-the-art methods, leading to clear gains in both quantitative metrics and visual perception.</p>
+  </section>
+
+  <!-- Method -->
+  <section class="card" id="method">
+    <h2>Method</h2>
+    <p class="intro">FADRA keeps a Wan2.1-T2V-1.3B backbone frozen for its motion and content priors, and adds three lightweight components that turn it into a video face restorer.</p>
+    <figure class="figure">
+      <img src="static/images/framework-12.png" alt="Overview of the FADRA framework: LQ and HQ videos are encoded by the Wan VAE, fused by an LQ pixel-alignment module, processed by a frozen Wan2.1-1.3B DiT with LoRA, then refined by the Repeated Residual Adaptation Head; training uses MSE and Frequency-Aware Loss." loading="lazy">
+      <figcaption><b>Architecture of FADRA.</b> LQ and HQ videos are encoded by the frozen Wan VAE. The LQ latent is fused with the noised latent and processed by the frozen DiT with LoRA. RRAH refines the velocity prediction at every flow-matching step, and the Frequency-Aware Loss supervises the predicted latents in the DCT domain during training.</figcaption>
+    </figure>
+
+    <div class="features">
+      <article class="feature f1">
+        <h3>LQ Fusion + LoRA</h3>
+        <p>The LQ latent enters through Wan's expanded, zero-initialized 3D patch embedding, and rank-128 LoRA adapts the frozen DiT while keeping its temporal prior.</p>
+      </article>
+      <article class="feature f2">
+        <h3>Residual Adaptation</h3>
+        <p>RRAH fuses the velocity <i>v<sub>t</sub></i> with the LQ latent <i>z<sub>lq</sub></i> and predicts a residual, <span class="eq">v̂<sub>t</sub> = v<sub>t</sub> + v′<sub>t</sub></span>, re-examining the degraded input at every step.</p>
+      </article>
+      <article class="feature f3">
+        <h3>Frequency-Aware Loss</h3>
+        <p>An 8×8 block DCT on the latents, reweighted by the JPEG luminance table, focuses training on the frequency bands people notice most.</p>
+      </article>
+    </div>
+
+    <figure class="figure">
+      <img src="static/images/RRAHmodule-4.png" alt="Diagram of the RRAH re-examination mechanism: at each of the T refinement blocks the backbone velocity is concatenated with the LQ latent, passed through Conv3D and one DiT block, and added back as a residual before the Wan decoder." loading="lazy">
+      <figcaption><b>LQ-guided “re-examination” in RRAH.</b> Applied at each of the <i>T</i> inference steps, followed by a single pass of the Wan decoder.</figcaption>
+    </figure>
+  </section>
+
+  <!-- Qualitative -->
+  <section class="card" id="qualitative">
+    <h2>Qualitative Results</h2>
+    <p class="intro"><span class="box y">Yellow</span> eyes, <span class="box r">red</span> mouth and teeth, <span class="box b">blue</span> hats, hair and accessories. Click a figure to enlarge.</p>
+    <div class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-target="fig-vfhq">VFHQ</button>
+      <button role="tab" aria-selected="false" data-target="fig-celebv">CelebV-HQ (zero-shot)</button>
+      <button role="tab" aria-selected="false" data-target="fig-real">Real-world movies</button>
+    </div>
+    <div class="tabpanel" id="fig-vfhq">
+      <figure class="figure zoomable">
+        <img src="static/images/visual_compare-v7-crop.jpg" alt="Grid comparing LQ input, RestoreFormer++, DiffBIR, KEEP, PGTFormer, SVFR, FADRA and ground truth on VFHQ test videos." loading="lazy">
+        <figcaption><b>VFHQ test set.</b> Clearer eyes, more natural teeth and richer hat textures, without temporal jitter.</figcaption>
+      </figure>
+    </div>
+    <div class="tabpanel" id="fig-celebv" hidden>
+      <figure class="figure zoomable">
+        <img src="static/images/visual_compare-appendix-1.jpg" alt="Grid comparing LQ input, RestoreFormer++, DiffBIR, KEEP, PGTFormer, SVFR, FADRA and ground truth on CelebV-HQ test videos." loading="lazy">
+        <figcaption><b>CelebV-HQ, no fine-tuning.</b> Hair textures and teeth stay sharp and stable across frames.</figcaption>
+      </figure>
+    </div>
+    <div class="tabpanel" id="fig-real" hidden>
+      <figure class="figure zoomable">
+        <img src="static/images/visual_compare-appendix-2.jpg" alt="Grid comparing RestoreFormer++, DiffBIR, KEEP, PGTFormer, SVFR, FADRA and the real input on in-the-wild movie clips." loading="lazy">
+        <figcaption><b>Real movie clips.</b> Trained only on synthetic degradations, FADRA still restores identity-preserving faces and details such as the crown and the cigarette.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Quantitative -->
+  <section class="card" id="results">
+    <h2>Quantitative Results</h2>
+    <p class="intro">FADRA is best on all five metrics on both VFHQ and CelebV-HQ, compared with 15 image- and video-based methods.</p>
+
+    <div class="stats">
+      <div class="stat"><span class="val">38.97</span><span class="lbl">FVD on VFHQ</span><span class="sub">next best 53.35</span></div>
+      <div class="stat"><span class="val">29.95</span><span class="lbl">PSNR on VFHQ</span><span class="sub">next best 28.51</span></div>
+      <div class="stat"><span class="val">48.32</span><span class="lbl">FVD on CelebV-HQ</span><span class="sub">zero-shot · SVFR 52.33</span></div>
+      <div class="stat"><span class="val">69%</span><span class="lbl">User study best vote</span><span class="sub">21 raters · SVFR 16%</span></div>
+    </div>
+
+    <p class="table-cap"><b>Comparison on VFHQ and CelebV-HQ.</b> <span class="best">Bold</span> is best, <u>underline</u> is second best.</p>
+    <div class="table-scroll">
+      <table class="results main">
+        <thead>
+          <tr>
+            <th rowspan="2" class="l">Method</th>
+            <th colspan="5" class="grp">VFHQ</th><th colspan="5" class="grp">CelebV-HQ</th>
+          </tr>
+          <tr>
+            <th class="gs">PSNR↑</th><th>SSIM↑</th><th>LPIPS↓</th><th>IDD↓</th><th>FVD↓</th>
+            <th class="gs">PSNR↑</th><th>SSIM↑</th><th>LPIPS↓</th><th>IDD↓</th><th>FVD↓</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="grp-row"><td colspan="11">Image-based methods</td></tr>
+          <tr><td class="l">CodeFormer <span class="ty">Transformer</span></td><td class="gs">26.93</td><td>0.7810</td><td>0.2826</td><td>0.5173</td><td>177.11</td><td class="gs">26.44</td><td>0.7674</td><td>0.2977</td><td>0.5262</td><td>251.00</td></tr>
+          <tr><td class="l">RestoreFormer++ <span class="ty">Transformer</span></td><td class="gs">27.28</td><td>0.7921</td><td>0.2657</td><td>0.3875</td><td>81.14</td><td class="gs">26.69</td><td>0.7708</td><td>0.2807</td><td>0.3815</td><td>118.90</td></tr>
+          <tr><td class="l">DAEFR <span class="ty">Transformer</span></td><td class="gs">22.79</td><td>0.6834</td><td>0.3485</td><td>0.8044</td><td>819.31</td><td class="gs">22.25</td><td>0.6609</td><td>0.3591</td><td>0.7742</td><td>1005.01</td></tr>
+          <tr><td class="l">PGDiff <span class="ty">Diffusion</span></td><td class="gs">22.35</td><td>0.6712</td><td>0.4583</td><td>1.1174</td><td>828.43</td><td class="gs">22.82</td><td>0.6731</td><td>0.4558</td><td>0.9835</td><td>676.30</td></tr>
+          <tr><td class="l">DifFace <span class="ty">Diffusion</span></td><td class="gs">25.49</td><td>0.7315</td><td>0.3780</td><td>0.8401</td><td>2399.60</td><td class="gs">25.29</td><td>0.7253</td><td>0.3784</td><td>0.7484</td><td>2456.44</td></tr>
+          <tr><td class="l">DiffBIR <span class="ty">Diffusion</span></td><td class="gs">27.56</td><td>0.7678</td><td>0.2852</td><td><u>0.3569</u></td><td><u>53.35</u></td><td class="gs">26.83</td><td>0.7499</td><td>0.3030</td><td>0.3843</td><td>125.31</td></tr>
+          <tr><td class="l">OSDFace <span class="ty">Diffusion</span></td><td class="gs">24.56</td><td>0.7385</td><td>0.2948</td><td>0.4434</td><td>155.98</td><td class="gs">24.26</td><td>0.7228</td><td>0.3288</td><td>0.5020</td><td>452.52</td></tr>
+          <tr class="grp-row"><td colspan="11">Video-based methods</td></tr>
+          <tr><td class="l">RealBasicVSR <span class="ty">CNN</span></td><td class="gs"><u>28.51</u></td><td>0.8160</td><td>0.3400</td><td>0.6704</td><td>172.09</td><td class="gs">27.66</td><td>0.7988</td><td>0.3536</td><td>0.6308</td><td>297.70</td></tr>
+          <tr><td class="l">StableVSR <span class="ty">Diffusion</span></td><td class="gs">27.79</td><td>0.8206</td><td>0.3201</td><td>0.6909</td><td>172.03</td><td class="gs">27.02</td><td>0.7891</td><td>0.3730</td><td>0.6794</td><td>335.82</td></tr>
+          <tr><td class="l">MGLDVSR <span class="ty">Diffusion</span></td><td class="gs">28.30</td><td><u>0.8271</u></td><td>0.3039</td><td>0.5232</td><td>109.20</td><td class="gs">27.30</td><td>0.7829</td><td>0.3766</td><td>0.6181</td><td>291.73</td></tr>
+          <tr><td class="l">VEnhancer <span class="ty">Diffusion</span></td><td class="gs">20.47</td><td>0.6903</td><td>0.4673</td><td>0.9289</td><td>1022.32</td><td class="gs">19.78</td><td>0.6466</td><td>0.4784</td><td>0.9265</td><td>1538.55</td></tr>
+          <tr><td class="l">STAR <span class="ty">Diffusion</span></td><td class="gs">26.16</td><td>0.8094</td><td>0.3497</td><td>0.4958</td><td>155.32</td><td class="gs">25.26</td><td>0.7798</td><td>0.3968</td><td>0.6683</td><td>367.40</td></tr>
+          <tr><td class="l">KEEP <span class="ty">Transformer</span></td><td class="gs">27.55</td><td>0.7876</td><td>0.2708</td><td>0.5068</td><td>154.73</td><td class="gs">26.30</td><td>0.7611</td><td>0.3056</td><td>0.6141</td><td>510.82</td></tr>
+          <tr><td class="l">PGTFormer <span class="ty">Transformer</span></td><td class="gs">25.73</td><td>0.7853</td><td><u>0.2610</u></td><td>0.3902</td><td>73.52</td><td class="gs">25.06</td><td>0.7646</td><td>0.2885</td><td>0.4439</td><td>149.25</td></tr>
+          <tr><td class="l">SVFR <span class="ty">Diffusion</span></td><td class="gs">26.54</td><td>0.7891</td><td>0.2815</td><td>0.3782</td><td>66.80</td><td class="gs"><u>28.20</u></td><td><u>0.8190</u></td><td><u>0.2513</u></td><td><u>0.3545</u></td><td><u>52.33</u></td></tr>
+          <tr class="ours"><td class="l">FADRA (Ours) <span class="ty">Diffusion</span></td><td class="gs"><b>29.95</b></td><td><b>0.8576</b></td><td><b>0.2378</b></td><td><b>0.2912</b></td><td><b>38.97</b></td><td class="gs"><b>28.70</b></td><td><b>0.8326</b></td><td><b>0.2421</b></td><td><b>0.3103</b></td><td><b>48.32</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="panel">
+        <h3>Efficiency</h3>
+        <p class="panel-sub">Seconds to restore a 161-frame 512×512 video on one A100 (log scale).</p>
+        <div class="bars">
+          <div class="bar"><span class="name">MGLDVSR</span><span class="track"><span class="fill" style="--w:100.0%"></span></span><span class="val">12716</span></div>
+          <div class="bar"><span class="name">PGDiff</span><span class="track"><span class="fill" style="--w:98.4%"></span></span><span class="val">11372</span></div>
+          <div class="bar"><span class="name">StableVSR</span><span class="track"><span class="fill" style="--w:67.5%"></span></span><span class="val">1248</span></div>
+          <div class="bar"><span class="name">DiffBIR</span><span class="track"><span class="fill" style="--w:65.6%"></span></span><span class="val">1089</span></div>
+          <div class="bar"><span class="name">VEnhancer</span><span class="track"><span class="fill" style="--w:63.9%"></span></span><span class="val">960</span></div>
+          <div class="bar"><span class="name">STAR</span><span class="track"><span class="fill" style="--w:63.5%"></span></span><span class="val">935</span></div>
+          <div class="bar"><span class="name">DifFace</span><span class="track"><span class="fill" style="--w:57.5%"></span></span><span class="val">608</span></div>
+          <div class="bar"><span class="name">SVFR</span><span class="track"><span class="fill" style="--w:42.5%"></span></span><span class="val">209</span></div>
+          <div class="bar us"><span class="name">FADRA</span><span class="track"><span class="fill" style="--w:40.9%"></span></span><span class="val">186</span></div>
+          <div class="bar"><span class="name">OSDFace*</span><span class="track"><span class="fill" style="--w:29.3%"></span></span><span class="val">81</span></div>
+        </div>
+        <p class="note">*One-step image model: faster, but far less temporally consistent (FVD 155.98 vs. 38.97).</p>
+      </div>
+      <div class="panel">
+        <h3>User Study</h3>
+        <p class="panel-sub">10 real-world videos, 21 raters. Scores from 1 to 5.</p>
+        <div class="table-scroll">
+          <table class="results compact">
+            <thead><tr><th class="l">Method</th><th>Quality↑</th><th>IDC↑</th><th>TC↑</th><th>Best vote↑</th></tr></thead>
+            <tbody>
+              <tr><td class="l">RestoreFormer++</td><td>2.12</td><td>2.25</td><td>2.18</td><td>3.81%</td></tr>
+              <tr><td class="l">DiffBIR</td><td>3.00</td><td>3.02</td><td>2.89</td><td>8.57%</td></tr>
+              <tr><td class="l">KEEP</td><td>2.17</td><td>1.74</td><td>2.02</td><td>2.38%</td></tr>
+              <tr><td class="l">SVFR</td><td>3.35</td><td>3.67</td><td>3.60</td><td>16.19%</td></tr>
+              <tr class="ours"><td class="l">FADRA (Ours)</td><td><b>4.36</b></td><td><b>4.32</b></td><td><b>4.31</b></td><td><b>69.05%</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">IDC: identity consistency. TC: temporal consistency.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ablation -->
+  <section class="card" id="ablation">
+    <h2>Ablation Study</h2>
+    <p class="intro">RRAH alone cuts FVD from 64.34 to 40.69 while adding only about 4 s of inference time for a 161-frame 512×512 video on one A100 (182 s → 186 s). The Frequency-Aware Loss is used only in training, so it adds no inference cost; combining both gives the best overall quality.</p>
+    <div class="two-col flush">
+      <div class="panel">
+        <h3>Components</h3>
+        <p class="panel-sub">VFHQ test set.</p>
+        <div class="table-scroll">
+          <table class="results compact">
+            <thead><tr><th class="c">FAL</th><th class="c">RRAH</th><th>PSNR↑</th><th>SSIM↑</th><th>LPIPS↓</th><th>IDD↓</th><th>FVD↓</th></tr></thead>
+            <tbody>
+              <tr><td class="x">✗</td><td class="x">✗</td><td>27.52</td><td>0.8249</td><td>0.2581</td><td>0.3046</td><td>64.34</td></tr>
+              <tr><td class="y">✓</td><td class="x">✗</td><td>28.56</td><td>0.8368</td><td>0.2521</td><td>0.2944</td><td>58.32</td></tr>
+              <tr><td class="x">✗</td><td class="y">✓</td><td>29.67</td><td>0.8550</td><td>0.2402</td><td><b>0.2806</b></td><td>40.69</td></tr>
+              <tr class="ours"><td class="y">✓</td><td class="y">✓</td><td><b>29.95</b></td><td><b>0.8576</b></td><td><b>0.2378</b></td><td>0.2912</td><td><b>38.97</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Where to apply FAL</h3>
+        <p class="panel-sub">VFHQ test set.</p>
+        <div class="table-scroll">
+          <table class="results compact">
+            <thead><tr><th class="l">Target</th><th>PSNR↑</th><th>SSIM↑</th><th>LPIPS↓</th><th>IDD↓</th><th>FVD↓</th></tr></thead>
+            <tbody>
+              <tr><td class="l">Baseline</td><td>27.52</td><td>0.8249</td><td>0.2581</td><td>0.3046</td><td>64.34</td></tr>
+              <tr><td class="l">FAL on <i>v</i></td><td>27.45</td><td><b>0.8400</b></td><td><b>0.2414</b></td><td>0.3430</td><td>72.86</td></tr>
+              <tr class="ours"><td class="l">FAL on <i>z</i></td><td><b>28.56</b></td><td>0.8368</td><td>0.2521</td><td><b>0.2944</b></td><td><b>58.32</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="note">The latent <i>z</i> carries facial structure directly, so frequency supervision there is more meaningful than on the velocity <i>v</i>.</p>
+      </div>
+    </div>
+
+    <figure class="figure zoomable">
+      <img src="static/images/freq_visual-v5.jpg" alt="Latent-space error maps, signed differences and FFT log-magnitude differences for the baseline, with FAL, with RRAH, and with both." loading="lazy">
+      <figcaption><b>Latent error and frequency analysis.</b> (a) Baseline, (b) + FAL, (c) + RRAH, (d) + FAL &amp; RRAH. Errors shrink and high-frequency energy approaches the ground truth as components are added.</figcaption>
+    </figure>
+  </section>
+
+  <!-- BibTeX -->
+  <section class="card" id="bibtex">
+    <h2>Citation</h2>
+    <div class="bib">
+      <button class="copy" type="button">Copy</button>
+<pre><code>@article{jiang2026fadra,
+  title   = {FADRA: Frequency-Aware Diffusion with Residual Adaptation for Video Face Restoration},
+  author  = {Jiang, Jin and Wang, Jia and Hu, Panwen and Zhao, Weiran and Liao, Shengcai},
+  journal = {arXiv preprint arXiv:2607.06389},
+  year    = {2026}
+}</code></pre>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 FADRA authors · <a href="#top">Back to top ↑</a></p>
+</footer>
+
+<div class="lightbox" hidden><img alt=""><button type="button" aria-label="Close">×</button></div>
+
+<script src="static/js/main.js"></script>
+</body>
+</html>
